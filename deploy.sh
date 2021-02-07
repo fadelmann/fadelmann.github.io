@@ -12,3 +12,4 @@ git add -A
 git commit -m 'deploy'
 git push -f git@github.com:fadelmann/fadelmann.github.io.git master:gh-pages
 cd -
+chmod +x deploy.sh
