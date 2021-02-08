@@ -5,7 +5,6 @@
          v-for="project in projects"
          :key="project.id"
          class="tile"
-         :class="{shadow: isActive}"
         >
         <div class="tile-wrapper">
             <div class="image-container">
@@ -27,22 +26,30 @@ export default {
   name: 'Projects',
   data() {
     return {
-        projects: projects.projects
+        projects: projects.projects,
+        tiles: {}
         }
     },
     props: {
-        active: Number,
     },
-    mounted() {
+    mounted() {    
+    this.tiles = document.querySelectorAll('.tile');
+    const config = {
+      rootMargin: '-150px',
+    }
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if(entry.intersectionRatio > 0) {
+            entry.target.classList.add('shadow')
+          }
+        });
+      }, config);
+
+      this.tiles.forEach(tile => {
+        observer.observe(tile);
+    });
     },
     computed: {
-    isActive() {
-      if (this.active === 1) {
-        return true;
-      } else {
-        return false;
-      }
-    }
   },
 }
 </script>
@@ -71,7 +78,15 @@ export default {
   align-items: center;
   justify-content: center;
   border-radius: 50px;
-  transition: box-shadow 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.shadow {
+  box-shadow: 
+  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+  opacity: 1;
 }
 
 .tile img {
@@ -93,12 +108,6 @@ export default {
     flex-direction: column;
     height: 90%;
     padding: 20px;
-}
-
-.shadow {
-  box-shadow: 
-  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
-  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
 }
 
 

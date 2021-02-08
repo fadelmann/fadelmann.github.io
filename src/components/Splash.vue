@@ -1,6 +1,6 @@
 <template>
   <div class="splash">
-    <div class="image-copy-container" :class="{shadow: splash && isActive}">
+    <div class="image-copy-container" :class="{shadow: splash}">
       <img src="../assets/potrait.png" alt="Tobias Czempiel">
         <div class="text">
           <h1>Tobias Czempiel</h1>
@@ -35,7 +35,6 @@ export default {
     }
   },
   props: {
-    active: Number,
   },
   mounted() {
     setTimeout(this.splashTrue, 300);
@@ -46,13 +45,6 @@ export default {
     }
   },
   computed: {
-    isActive() {
-      if (this.active === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    }
   },
 }
 </script>
@@ -63,7 +55,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 110vh;
 }
 
 .shadow {

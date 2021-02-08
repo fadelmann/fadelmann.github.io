@@ -4,15 +4,16 @@
       <ul>
         <li 
           @click="scrollToSection(index)" 
-          v-for="(section, index) in sections"
+          v-for="(section, index) in menuEntries"
          :key="index"
          :class="{active: activeSection == index}"
         > {{ section.name }} </li>
       </ul>
     </div>
     <div class="content-wrapper">
-      <splash class="section" :active="activeSection"></splash>
-      <projects class="section" :active="activeSection"></projects>
+      <splash class="section"></splash>
+      <projects class="section"></projects>
+      <about class="section"></about>
     </div> 
   </div>
 </template>
@@ -20,22 +21,25 @@
 <script>
 import Splash from './components/Splash.vue'
 import Projects from './components/Projects.vue'
+import About from './components/About.vue'
 
 export default {
   name: 'App',
   components: {
     Splash,
-    Projects
+    Projects,
+    About
   },
   data() {
     return {
-      sections: [
+      menuEntries: [
       { name: 'start' },
       { name: 'projects' },
       { name: 'about' }
       ],
       activeSection: 0,
       inMove: false,
+      sections: {},
     }
   },
   methods: {
@@ -60,6 +64,22 @@ export default {
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
+  },
+  mounted() {
+    // this.sections = document.querySelectorAll('.section');
+
+    //   const observer = new IntersectionObserver(entries => {
+    //     entries.forEach(entry => console.log(entry));
+    //   });
+
+    //   this.sections.forEach(section => {
+    //     observer.observe(section);
+    // });
+
+
+
+
+
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
