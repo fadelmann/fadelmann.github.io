@@ -1,0 +1,106 @@
+<template>
+  <div class="projects">
+    <div class="projects-container">
+        <div 
+         v-for="project in projects"
+         :key="project.id"
+         class="tile"
+         :class="{shadow: isActive}"
+        >
+        <div class="tile-wrapper">
+            <div class="image-container">
+                <img :src="project.image" alt="">
+            </div>
+            <h2>{{ project.title }}</h2>
+            <h4> {{project.subtitle }}</h4>
+            <h5>{{project.languages }}</h5>
+        </div>
+        </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import projects from '../projects.js'
+
+export default {
+  name: 'Projects',
+  data() {
+    return {
+        projects: projects.projects
+        }
+    },
+    props: {
+        active: Number,
+    },
+    mounted() {
+    },
+    computed: {
+    isActive() {
+      if (this.active === 1) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  },
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+.projects {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.projects-container {
+    display: flex;
+    width: 90%;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.tile {
+  width: calc(50% - 100px);
+  margin: 20px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  transition: box-shadow 0.5s ease-in-out;
+}
+
+.tile img {
+    width: 100%;
+    border-radius: 50px;
+}
+
+.image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tile-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: column;
+    height: 90%;
+    padding: 20px;
+}
+
+.shadow {
+  box-shadow: 
+  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+}
+
+
+
+</style>
