@@ -65,13 +65,12 @@ export default {
 
 .projects-container {
     display: flex;
-    width: 90%;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .tile {
-  width: calc(50% - 100px);
+  width: calc(33% - 50px);
   margin: 20px;
   min-height: 300px;
   display: flex;

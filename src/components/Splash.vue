@@ -66,7 +66,6 @@ export default {
 
 .image-copy-container {
   display: flex;
-  width: 80%;
   padding: 50px;
   border-radius: 50px;
   transition: box-shadow 0.5s ease-in-out;

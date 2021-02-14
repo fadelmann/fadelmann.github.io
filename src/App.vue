@@ -11,9 +11,12 @@
       </ul>
     </div>
     <div class="content-wrapper">
-      <splash class="section"></splash>
-      <projects class="section"></projects>
-      <about class="section"></about>
+      <div class="content-margin">
+        <splash class="section"></splash>
+        <projects class="section"></projects>
+        <resume class="section"></resume>
+        <about class="section"></about>
+      </div>
     </div> 
   </div>
 </template>
@@ -22,19 +25,23 @@
 import Splash from './components/Splash.vue'
 import Projects from './components/Projects.vue'
 import About from './components/About.vue'
+import Resume from './components/Resume.vue'
+
 
 export default {
   name: 'App',
   components: {
     Splash,
     Projects,
-    About
+    About,
+    Resume
   },
   data() {
     return {
       menuEntries: [
       { name: 'start' },
       { name: 'projects' },
+      { name: 'resume' },
       { name: 'about' }
       ],
       activeSection: 0,
@@ -79,7 +86,6 @@ export default {
 
 
 
-
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
@@ -117,6 +123,10 @@ html, body {
   align-items: center;
 }
 
+.section {
+  margin-bottom: 10vh;
+}
+
 ul {
   font-size: 50px;
   list-style-type:none;
@@ -138,6 +148,18 @@ li:hover {
 
 .content-wrapper {
   margin-left: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.content-margin {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .active {
