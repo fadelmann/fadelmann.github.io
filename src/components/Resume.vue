@@ -30,7 +30,7 @@
 
       <h1>Positions</h1>
       <div class="positions-wrapper">
-        <div class="position-entry shadow" v-for="(entry, index) in newPositions" :key="entry.id">
+        <div class="position-entry shadow" v-for="(entry, index) in newPositions" :key="entry.id" @click="changeExpand(index)">
           <div 
             :style="{ left: timelinePosition + 'px', height: positionHeight[index] + 'px' }"
             class="timeline"
@@ -42,16 +42,20 @@
               
             </div>
           </div>
-            <div class="entry-content-container">
+            <div class="entry-content-container" >
               <p class="date"> 
                 <span>{{ `from ${entry['Started On']} to ${entry['Finished On']} `}} </span>
               </p>
               <h3>{{ `${entry['Title']} at ${entry['Company Name']}` }}</h3>
-              <p>
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
-                <span>{{ `${entry.Location}` }}</span>
-              </p>
-              <p class="description"> {{ entry.Description }}</p>
+              <transition name="fade">
+                <div class="more-info" v-if="entry.expanded">
+                  <p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M12 0c-4.198 0-8 3.403-8 7.602 0 4.198 3.469 9.21 8 16.398 4.531-7.188 8-12.2 8-16.398 0-4.199-3.801-7.602-8-7.602zm0 11c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3z"/></svg>
+                    <span>{{ `${entry.Location}` }}</span>
+                  </p>
+                  <p class="description"> {{ entry.Description }}</p>
+                </div>
+              </transition>
             </div>
         </div>
       </div>
@@ -77,6 +81,7 @@ export default {
       Skills,
       timelinePosition: 0,
       positionHeight: [],
+      newPositions:{},
     }
   },
   methods: {
@@ -86,6 +91,9 @@ export default {
     },
     myEventHandler() {
       this.positionTimeline();
+    },
+    changeExpand(index) {
+      this.newPositions[index].expanded = !this.newPositions[index].expanded;
     }
   },
   created() {
@@ -97,6 +105,7 @@ export default {
     this.newPositions = this.Positions.map(function(el, index) {
       var o = Object.assign({}, el);
       o.id = 100+index;
+      o.expanded = false;
       return o
     });
     this.newSkills = this.Skills.map(function(el, index) {
@@ -121,6 +130,13 @@ export default {
   width: 100%;
 }
 
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
 .resume-wrapper {
 }
 .positions-wrapper {
@@ -139,7 +155,9 @@ export default {
   border-radius: 50px;
   width: 45%;
   box-sizing: border-box;
-  margin-top: -70px;
+  margin-top: -50px;
+  cursor: pointer;
+  transition: ease-in all 1s;
 }
 
 .position-entry:nth-child(even) {

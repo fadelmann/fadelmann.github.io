@@ -55,7 +55,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 110vh;
+  min-height: 110vh;
 }
 
 .shadow {
