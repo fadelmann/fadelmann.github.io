@@ -2,7 +2,6 @@
   <div class="resume">
     <positions></positions>
     <education></education>
-    <skills></skills>
   </div>
 </template>
 
@@ -10,11 +9,10 @@
 
 import Positions from '../components/Positions.vue'
 import Education from '../components/Education.vue'
-import Skills from '../components/Skills.vue'
 
 
 export default {
-  components: { Positions, Education, Skills },
+  components: { Positions, Education },
   name: 'Resume',
   data() {
     return {

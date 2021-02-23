@@ -13,9 +13,9 @@
     <div class="content-wrapper">
       <div class="content-margin">
         <splash class="section"></splash>
+        <goals class="section"></goals>
         <projects class="section"></projects>
         <resume class="section"></resume>
-        <about class="section"></about>
       </div>
     </div> 
   </div>
@@ -24,7 +24,7 @@
 <script>
 import Splash from './components/Splash.vue'
 import Projects from './components/Projects.vue'
-import About from './components/About.vue'
+import Goals from './components/Goals.vue'
 import Resume from './components/Resume.vue'
 
 
@@ -33,16 +33,17 @@ export default {
   components: {
     Splash,
     Projects,
-    About,
+    Goals,
     Resume
   },
   data() {
     return {
       menuEntries: [
       { name: 'start' },
+      { name: 'goal' },
       { name: 'projects' },
       { name: 'resume' },
-      { name: 'about' }
+
       ],
       activeSection: 0,
       inMove: false,
@@ -125,6 +126,10 @@ html, body {
 
 .section {
   margin-bottom: 10vh;
+}
+
+h1, h2, h3, h4, h5 {
+  margin: 0;
 }
 
 ul {

@@ -12,7 +12,12 @@
             </div>
             <h2>{{ project.title }}</h2>
             <h4> {{project.subtitle }}</h4>
-            <h5>{{project.languages }}</h5>
+            <div v-for="(language, index) in project.languages" :key="index">
+              <h5>{{language }}</h5>
+            </div>
+            <div class="project-btn">
+              more
+            </div>
         </div>
         </div>
     </div>
@@ -109,6 +114,13 @@ export default {
     padding: 20px;
 }
 
-
+.project-btn {
+  background: #475a79;
+  color: #e7e0d5;
+  border-radius: 10px;
+  padding: 5px;
+  align-self: flex-end;
+  cursor: pointer;
+}
 
 </style>
