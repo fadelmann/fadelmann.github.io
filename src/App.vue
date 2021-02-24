@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <div class="sitemap">
+    <div class="sitemap shadow">
       <ul>
         <li 
           @click="scrollToSection(index)" 
           v-for="(section, index) in menuEntries"
          :key="index"
-         :class="{active: activeSection == index}"
+         :class="[{active: activeSection == index}, {shadow: portrait }]"
         > {{ section.name }} </li>
       </ul>
     </div>
     <div class="content-wrapper">
       <div class="content-margin">
-        <splash class="section"></splash>
+        <splash class="section" :portrait="portrait" ></splash>
         <goals class="section"></goals>
         <projects class="section"></projects>
         <resume class="section"></resume>
@@ -26,6 +26,8 @@ import Splash from './components/Splash.vue'
 import Projects from './components/Projects.vue'
 import Goals from './components/Goals.vue'
 import Resume from './components/Resume.vue'
+import smoothscroll from 'smoothscroll-polyfill';
+
 
 
 export default {
@@ -39,15 +41,15 @@ export default {
   data() {
     return {
       menuEntries: [
-      { name: 'start' },
+      { name: 'about' },
       { name: 'goal' },
       { name: 'projects' },
       { name: 'resume' },
-
       ],
       activeSection: 0,
       inMove: false,
       sections: {},
+      portrait: false,
     }
   },
   methods: {
@@ -68,28 +70,29 @@ export default {
           this.activeSection = index;
         }
       }, this);
+    },
+    handleResize () {
+      this.detectOrientation();
+    },
+    detectOrientation () {
+      if(screen.availHeight > screen.availWidth){
+          this.portrait = true;
+      } else {
+        this.portrait = false;
+      }
     }
   },
   created () {
     window.addEventListener('scroll', this.handleScroll);
+    window.addEventListener('resize', this.handleResize);
+    this.detectOrientation();
+    smoothscroll.polyfill();
   },
   mounted() {
-    // this.sections = document.querySelectorAll('.section');
-
-    //   const observer = new IntersectionObserver(entries => {
-    //     entries.forEach(entry => console.log(entry));
-    //   });
-
-    //   this.sections.forEach(section => {
-    //     observer.observe(section);
-    // });
-
-
-
-
   },
   destroyed () {
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('resize', this.handleResize);
   },
 }
 </script>
@@ -107,33 +110,34 @@ html, body {
   font-family: 'Nunito', sans-serif;
 }
 
-#app {
-
-}
-
 .sitemap {
   position: fixed;
   width: 300px;
   height: 100%;
-  box-shadow: 
-  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
-  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
   border-radius: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #e7e0d5;
+  z-index: 100;
+}
+
+.shadow {
+  box-shadow: 
+  12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+  -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
 }
 
 .section {
   margin-bottom: 10vh;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5  {
   margin: 0;
 }
 
 ul {
-  font-size: 50px;
+  font-size: 3.5rem;
   list-style-type:none;
   margin-block-end: 0;
   margin-block-start: 0;
@@ -149,6 +153,10 @@ li {
 
 li:hover {
   color:#475a79;
+}
+
+svg {
+  fill: #475a79;
 }
 
 .content-wrapper {
@@ -169,6 +177,39 @@ li:hover {
 
 .active {
   color:#475a79;
+  box-shadow: 
+    3px 3px 4px 0 rgba(255, 255, 255, 0.3) inset,
+    -2px -2px 3px 0 rgba(0, 0, 0, .25) inset;
+
 }
+
+@media (orientation: portrait) {
+  .sitemap {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    border-radius: 50px 50px 0 0;
+  }
+
+  ul {
+    font-size: 1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  li {
+    padding: 1rem;
+    border-radius: 50px;
+  }
+
+  .content-wrapper {
+    margin: auto;
+  }
+}
+
 
 </style>

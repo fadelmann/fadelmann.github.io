@@ -64,7 +64,7 @@ export default {
   align-items: flex-start;
   justify-content: center;
   flex-direction: column;
-  padding: 40px;
+  padding: 20px;
   border-radius: 50px;
   transition: all 0.5s ease-in-out;
   opacity: 0;
@@ -78,8 +78,17 @@ export default {
 }
 
 svg {
- fill:#475a79;
-margin-right: 10px;
+  margin-right: 10px;
+}
+
+@media (orientation: portrait) {
+  .education-wrapper {
+    flex-direction: column;
+  }
+
+  .education-tile {
+    width: auto;
+  }
 }
 </style>
 

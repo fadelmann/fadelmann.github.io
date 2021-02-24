@@ -1,7 +1,9 @@
 <template>
   <div class="splash">
-    <div class="image-copy-container" :class="{shadow: splash}">
-      <img src="../assets/potrait.png" alt="Tobias Czempiel">
+    <div class="image-copy-container" :class="{shadow:  splash && !portrait}">
+      <div class="splash-image">
+        <img src="../assets/potrait.png" alt="Tobias Czempiel">
+      </div>
         <div class="text">
           <h1>Tobias Czempiel</h1>
           <p>I'm a German based computer scientist, PHD student. I'm working on extracting surgical workflow information from untrimmed endoscopic videos with temporal deep learning models such as RNNs or TCNs. Scroll to learn more aboute me.</p>
@@ -35,8 +37,12 @@ export default {
     }
   },
   props: {
+    portrait: {
+      type: Boolean,
+    }
   },
   mounted() {
+    console.log(this.portrait);
     setTimeout(this.splashTrue, 300);
   },
   methods: {
@@ -49,13 +55,12 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .splash {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  min-height: 110vh;
+  min-height: 100vh;
 }
 
 .shadow {
@@ -69,10 +74,15 @@ export default {
   padding: 50px;
   border-radius: 50px;
   transition: box-shadow 0.5s ease-in-out;
+  max-width: 980px;
+  margin-top: 3rem;
 }
 
-.image-copy-container img {
+.splash-image {
   flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .image-copy-container .text {
@@ -86,6 +96,11 @@ img {
   border-radius: 50%;
   height: 40vh;
   margin-right: 50px;
+  display: block;
+  max-width: 440px;
+  max-height: 440px;
+  width: auto;
+  height: auto;
 }
 
 .social-container {
@@ -100,6 +115,30 @@ img {
   align-items: flex-start;
   flex-direction: column;
   margin-right:  20px;
+}
+
+@media (orientation: portrait) {
+  .splash {
+    flex-direction: column;
+    min-height: 90vh;
+  }
+
+  .image-copy-container {
+    flex-direction: column;
+  }
+
+  img {
+    box-shadow: 
+    12px 12px 16px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 12px 0 rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    height: 20vh;
+    max-width:80%;
+    max-height:80%;
+    margin-right: 0;
+    align-self: center;
+    flex-grow: 0;
+  }
 }
 
 </style>

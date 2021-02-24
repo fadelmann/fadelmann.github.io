@@ -123,4 +123,14 @@ export default {
   cursor: pointer;
 }
 
+@media (orientation: portrait) {
+  .projects-container {
+    flex-direction: column;
+  }
+
+  .tile {
+    width: auto;
+  }
+}
+
 </style>

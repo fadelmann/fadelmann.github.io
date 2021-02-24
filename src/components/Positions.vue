@@ -196,7 +196,7 @@ export default {
 
 .timeline {
   width: 3px;
-  background-color: #475a79;
+  background-color: #475a795d;
   position: absolute;
   border-radius: 50px;
   box-sizing: border-box;
@@ -250,7 +250,6 @@ p {
 }
 
 svg {
-  fill: #475a79;
   margin-right: 10px;
   transition: all 300ms ease-in-out;
 }
@@ -270,5 +269,15 @@ h4 {
 
 .description {
   margin-top: 20px;
+}
+
+@media (orientation: portrait) {
+  .resume-wrapper {
+    align-items: flex-end;
+  }
+
+  .positions-wrapper {
+    width: 80%;
+  }
 }
 </style>
